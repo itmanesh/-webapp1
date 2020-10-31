@@ -50,6 +50,10 @@ pipeline {
       steps {
         sh 'cp /var/lib/jenkins/workspace/test1/target/WebApp.war /home/ubuntu/Downloads/apache-tomcat-8.5.59/webapps/webapp.war'
        }      
-     }       
+     }
+    
+    stage ('DAAST') {
+      step([$class: 'BuildScanner', incScan: false, incScanId: '', profile: '11111111-1111-1111-1111-111111111111', repTemp: '11111111-1111-1111-1111-111111111111', stopScan: true, svRep: false, target: '29a9362b-87b3-4097-b565-f051c7b9fe49', threat: 'DoNotFail'])
+    }
   }
 }
