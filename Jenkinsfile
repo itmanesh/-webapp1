@@ -53,7 +53,7 @@ pipeline {
      }
     
     stage ('DAAST') {
-      step([$class: 'BuildScanner', incScan: false, incScanId: '', profile: '11111111-1111-1111-1111-111111111111', repTemp: '11111111-1111-1111-1111-111111111111', stopScan: true, svRep: false, target: '29a9362b-87b3-4097-b565-f051c7b9fe49', threat: 'DoNotFail'])
-    }
+      steps{([$class: 'BuildScanner', incScan: false, incScanId: '', profile: '11111111-1111-1111-1111-111111111111', repTemp: '11111111-1111-1111-1111-111111111111', stopScan: true, svRep: false, target: '29a9362b-87b3-4097-b565-f051c7b9fe49', threat: 'DoNotFail'])
+           }}
   }
 }
