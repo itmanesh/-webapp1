@@ -13,33 +13,6 @@ pipeline {
       }
     }
     
-        stage ('Check-Git-Secrets') {
-      steps {
-        sh 'rm trufflehog || true'
-        sh 'docker run gesellix/trufflehog --json https://github.com/itmanesh/-webapp1.git > trufflehog'
-        sh 'cat trufflehog'
-      }
-    }
-    
-        stage ('Source Composition Analysis') {
-      steps {
-         sh 'rm owasp* || true'
-         sh 'wget "https://raw.githubusercontent.com/cehkunal/webapp/master/owasp-dependency-check.sh" '
-         sh 'chmod +x owasp-dependency-check.sh'
-         sh 'bash owasp-dependency-check.sh'
-         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
-        
-      }
-    }
-    
-        stage ('SAST') {
-      steps {
-        withSonarQubeEnv('sonar') {
-          sh 'mvn sonar:sonar'
-          sh 'cat target/sonar/report-task.txt'
-        }
-      }
-    }
     
     stage ('Build') {
       steps {
@@ -52,8 +25,12 @@ pipeline {
        }      
      }
     
-    stage ('DAAST') {
-      steps{([$class: 'BuildScanner', incScan: false, incScanId: '', profile: '11111111-1111-1111-1111-111111111111', repTemp: '11111111-1111-1111-1111-111111111111', stopScan: true, svRep: false, target: '29a9362b-87b3-4097-b565-f051c7b9fe49', threat: 'DoNotFail'])
-           }}
+    stage ('DAST') {
+      steps {
+        sshagent(['ssh']) {
+         sh 'ssh -o  StrictHostKeyChecking=no root@192.168.6.155 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://127.0.0.1:8081/webapp/" || true'
+        }
+      }
+    }
   }
 }
