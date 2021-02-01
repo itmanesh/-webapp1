@@ -15,6 +15,11 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <id>jetty936Jsp</id>
+
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
   <build>
     <finalName>WebApp</finalName>
     <plugins>
