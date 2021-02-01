@@ -34,6 +34,8 @@
             </button>
             <a class="navbar-brand" href="#">Web App for Developers</a>
         </div>
+        <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<c:import url="<%= request.getParameter(\"myvulnqueryparameter\")%>" />
         <div class="navbar-collapse collapse">
             <form class="navbar-form navbar-right" role="form">
                 <div class="form-group">
