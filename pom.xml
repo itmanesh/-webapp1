@@ -17,5 +17,28 @@
   </dependencies>
   <build>
     <finalName>WebApp</finalName>
+    <plugins>
+                    <plugin>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-jspc-maven-plugin</artifactId>
+                        <version>9.3.6.v20151106</version> <!-- Latest version -->
+                        <executions>
+                            <execution>
+                                <id>jspc</id>
+                                <goals>
+                                    <goal>jspc</goal>
+                                </goals>
+                                <configuration>
+                                    <jspc>
+                                        <smapSuppressed>false</smapSuppressed>
+                                        <smapDumped>true</smapDumped>
+                                    </jspc>
+                                    <keepSources>true</keepSources>
+                                    <useProvidedScope>true</useProvidedScope>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
   </build>
 </project>
